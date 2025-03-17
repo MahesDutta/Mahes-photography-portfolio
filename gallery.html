@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MahesDutta Photography Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #e993b0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            font-size: 3rem;
+            margin: 2rem 0;
+            color: #35195c;
+            animation: fadeInDown 1s ease;
+        }
+
+        .category-section {
+            margin: 4rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #391906;
+            position: relative;
+            padding-left: 1rem;
+            cursor: pointer;
+        }
+
+        .category-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 4px;
+            height: 70%;
+            background: #3498db;
+            transform: translateY(-50%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 5px 6px 5px rgba(10, 9, 9, 0.466);
+            cursor: pointer;
+            transform-origin: center;
+            animation: scaleIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            transition: bottom 0.5s ease;
+        }
+
+        .gallery-item:hover .image-overlay {
+            bottom: 0;
+        }
+
+        .image-title {
+            color: white;
+            font-size: 1.1rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item:hover .image-title {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .category-title {
+                font-size: 1.8rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .gallery-container {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .category-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <h1 class="page-title">Photography Portfolio</h1>
+
+        <!-- Flowers Section -->
+        <section class="category-section" style="animation-delay: 0.2s;">
+            <h2 class="category-title">Flowers</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-1.jpg" alt="Flower 1">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 1</h3>
+                    </div>
+                    
+                </div>
+
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-2.jpg" alt="Flower 2">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 2</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-3.jpg" alt="Flower 3">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 3</h3>
+                    </div>
+                    
+                </div><div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-4.jpg" alt="Flower 4">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 4</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-5.jpg" alt="Flower 5">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 5</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-6.jpg" alt="Flower 6">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 6</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-7.jpg" alt="Flower 7">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 7</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-8.jpg" alt="Flower 8">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 8</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-9.jpg" alt="Flower 9">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 9</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-10.jpg" alt="Flower 10">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 10</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-11.jpg" alt="Flower 11">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 11</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-12.jpg" alt="Flower 12">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 11</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-13.jpg" alt="Flower 13">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 13</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-14.jpg" alt="Flower 14">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 14</h3>
+                    </div>
+                    
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.4s;">
+                    <img src="flower/flower-15.jpg" alt="Flower 15">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Flower 15</h3>
+                    </div>
+                    
+                </div>
+                <!-- Add 5 more flower items following the same pattern -->
+            </div>
+        </section>
+
+        <!-- Insects Section -->
+        <section class="category-section" style="animation-delay: 0.4s;">
+            <h2 class="category-title">Insects</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" style="animation-delay: 0.5s;">
+                    <img src="insects/insects-1.jpg" alt="Butterfly">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Spider</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.5s;">
+                    <img src="insects/insects-2.jpg" alt="Butterfly">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Spider</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.5s;">
+                    <img src="insects/insects-3.jpg" alt="Butterfly">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Colorful Butterfly</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.5s;">
+                    <img src="insects/insects-4.jpg" alt="Butterfly">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Colorful Butterfly</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.5s;">
+                    <img src="insects/insects-5.jpg" alt="Butterfly">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Colorful Butterfly</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.5s;">
+                    <img src="insects/insects-6.jpg" alt="Butterfly">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Colorful Butterfly</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.5s;">
+                    <img src="insects/insects-7.jpg" alt="Butterfly">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Bee on flower</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.5s;">
+                    <img src="insects/insects-8.jpg" alt="Butterfly">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Bee on flower</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.5s;">
+                    <img src="insects/image-2.jpg" alt="Butterfly">
+                    <div class="image-overlay">
+                        <h3 class="image-title">Bee on flower</h3>
+                    </div>
+                </div>
+                <!-- Add 5 more insect items following the same pattern -->
+            </div>
+        </section>
+
+        <!-- Temples Section -->
+        <section class="category-section" style="animation-delay: 0.6s;">
+            <h2 class="category-title">Temples</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" style="animation-delay: 0.7s;">
+                    <img src="temple/temple-1.jpg" alt="Ancient Temple">
+                    <div class="image-overlay">
+                        <h3 class="image-title">108 Shiv Mandir*Kalna*Purba Bardhaman</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.7s;">
+                    <img src="temple/temple-2.jpg" alt="Ancient Temple">
+                    <div class="image-overlay">
+                        <h3 class="image-title">108 Shiv Mandir*Kalna*Purba Bardhaman</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.7s;">
+                    <img src="temple/temple-3.jpg" alt="Ancient Temple">
+                    <div class="image-overlay">
+                        <h3 class="image-title">108 Shiv Mandir*Kalna*Purba Bardhaman</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.7s;">
+                    <img src="temple/temple-4.jpg" alt="Ancient Temple">
+                    <div class="image-overlay">
+                        <h3 class="image-title">108 Shiv Mandir*Kalna*Purba Bardhaman</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.7s;">
+                    <img src="temple/temple-5.jpg" alt="Ancient Temple">
+                    <div class="image-overlay">
+                        <h3 class="image-title">108 Shiv Mandir*Kalna*Purba Bardhaman</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" style="animation-delay: 0.7s;">
+                    <img src="temple/temple-6.jpg" alt="Ancient Temple">
+                    <div class="image-overlay">
+                        <h3 class="image-title">108 Shiv Mandir*Kalna*Purba Bardhaman</h3>
+                    </div>
+                </div>
+               
+                <!-- Add 5 more temple items following the same pattern -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        // Animate items on scroll
+        function animateOnScroll() {
+            const sections = document.querySelectorAll('.category-section');
+            const items = document.querySelectorAll('.gallery-item');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => observer.observe(section));
+            items.forEach(item => observer.observe(item));
+        }
+
+        // Modal functionality
+        const modal = document.querySelector('.modal');
+        const modalImg = modal.querySelector('img');
+        const closeBtn = document.querySelector('.close-modal');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const imgSrc = item.querySelector('img').src;
+                modalImg.src = imgSrc;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', () => {
+            animateOnScroll();
+        });
+    </script>
+</body>
+</html>

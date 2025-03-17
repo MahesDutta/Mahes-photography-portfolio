@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MahesDutta Photography</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">Mahes Photography</div>
+        <div class="menu-toggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">About Me</a></li>
+            <li><a href="#gallery" class="nav-link">Gallery</a></li>
+            <li><a href="#contact-section" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- Home Section -->
+    <section id="home" class="home">
+        <div class="welcome-text">
+            <h1 class="animate-text">Welcome to My photography portfolio !</h1>
+            <p class="animate-text">Thank you for visiting here, will find a collection of my work,<br>
+                each photo capturing unique moments and stories.<br>
+                whether you are here for inspiration to view my latest project,
+                 or to discuss a potential collaboration,<br>
+                I am excited to share my passion with you. Explore and feel free to reach out I'd love to connect.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <h1>About Me</h1>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="assets/profile-1.jpg" alt="Mahes Dutta">
+                </div>
+                <div class="about-text">
+                    <p><h2>Hello,</h2></p>
+                                  <p>I am <b>Mahes Dutta</b>,a <b>web-page devoloper</b> with a flair for <b>photography.</b> 
+                        I specialize in building clean,responsive,and user-friendly web site using HTML,CSS & Java script.
+
+                        I'm a mobile photographer also who specializes in capturing everyday moments.
+                         My smartphone is my tool of choice,and through it I've captured many flowers,temples and 
+                         defferent kind of insects and portraits in my mobile lence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <h2>Gallery</h2>
+        <div class="gallery-categories">
+            <div class="category" data-category="flowers">
+                <img src="assets/portfolio-1.jpg" alt="Flowers">
+                <a href ="gallery.html" ><h3>View Flowers</h3></a>
+            </div>
+            <div class="category" data-category="insects">
+                <img src="assets/portfolio-2.jpg" alt="Insects">
+                <a href ="gallery.html" ><h3>View Insects</h3></a>
+            </div>
+            <div class="category" data-category="temples">
+                <img src="assets/image-6.jpg" alt="Temples">
+                <a href ="gallery.html" ><h3>View Temples</h3></a>
+            </div>
+        </div>
+
+        <div class="gallery-modal">
+            <span class="close-modal">&times;</span>
+            <div class="gallery-grid flowers">
+                <!-- Flower images will be loaded here -->
+            </div>
+            <div class="gallery-grid insects">
+                <!-- Insect images will be loaded here -->
+            </div>
+            <div class="gallery-grid temples">
+                <!-- Temple images will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+
+    <section id="contact-section" class="Contact-body">
+        <div class="container">
+            <h3>Get in Touch</h3>
+            <div class="contact-section">
+                <!-- Phone Call Link -->
+                <a href="tel:+91860952839" class="contact-item">
+                    <span class="emoji"><img src="assets/phone.png" alt="Phone" /></span>
+                    <span class="text">Call Me</span>
+                </a>
+
+                <!-- WhatsApp Link -->
+                <a href="https://wa.me/91860952839" class="contact-item">
+                    <span class="emoji"><img src="assets/whatsap.png" alt="WhatsApp" /></span>
+                    <span class="text">WhatsApp</span>
+                </a>
+
+                <!-- Email Link -->
+                <a href="mailto:mahesdutta8609@gmail.com" class="contact-item">
+                    <span class="emoji"><img src="assets/gmail.png" alt="Mail" /></span>
+                    <span class="text">Email</span>
+                </a>
+
+                <!-- Facebook Link -->
+                <a href="https://facebook.com/your.profile" class="contact-item">
+                    <span class="emoji"><img src="assets/facebook.png" alt="Facebook" /></span>
+                    <span class="text">Facebook</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
